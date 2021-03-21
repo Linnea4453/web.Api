@@ -1,0 +1,29 @@
+﻿
+
+<nav class="navbar navbar-expand-lg navbar-light shadow colorblue" style="background-color: #F5CB5C;">
+    <div class="container">
+        <div class="d-flex align-items-center mb-2">
+            <i class="fas fa-hand-holding-heart fa-3x me-2"></i>
+            <span class="me-4 fa-2x"><strong>UniqeFixes</strong></span>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <NavLink class="nav-link" href="#">Home</NavLink>
+                <NavLink class="nav-link" href="/issues">Issues</NavLink>
+                <NavLink class="nav-link" href="/customers">Customers</NavLink>
+                <NavLink class="nav-link" href="/serviceworkers">Service Workers</NavLink>
+            </div>
+        </div>
+    </div>
+</nav>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

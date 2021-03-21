@@ -31,15 +31,11 @@ namespace WepApiAssignment.Controllers
             Configuration = configuration;
         }
 
-
-
-
-
         // GET: api/ServiceWorkers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ServiceWorker>>> GetServiceWorkers()
         {
-            return await _context.ServiceWorkers.ToListAsync();
+            return await _context.ServiceWorkers.Include(c => c.Issues).ToListAsync();
         }
 
         // GET: api/ServiceWorkers/5
@@ -55,10 +51,6 @@ namespace WepApiAssignment.Controllers
 
             return serviceWorker;
         }
-
-
-
-
 
 
         // PUT: api/ServiceWorkers/5
@@ -97,6 +89,7 @@ namespace WepApiAssignment.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             if (_context.ServiceWorkers.Any(user => user.Email == model.Email))
+
                 return Conflict();
             try
             {

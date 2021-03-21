@@ -1,0 +1,88 @@
+﻿@page "/customers"
+@inject HttpClient Http
+
+
+    <div class="d-flex justify-content-center mt-4">
+        <h3>Customers side</h3>
+    </div>
+
+    <p>
+        Fill in the form below to add a new customer to the server.<br>
+        Then you can create a new errand with your issue.
+    </p>
+
+    <h2>Create a new Customer</h2>
+    <div class="issue-grid mt-4 p-5">
+        <div class="col-8">
+            <EditForm Model="customerViewModel" OnSubmit="OnSubmitAsync" class="mt-3">
+                <div class="row">
+                    <div class="mb-3">
+                        <input id="firstname" @bind="customerViewModel.FirstName" class="form-control" type="text" placeholder="Firstname...">
+                    </div>
+                    <div class="mb-3">
+                        <input id="lastname" @bind="customerViewModel.LastName" class="form-control" type="text" placeholder="Lastname...">
+                    </div>
+                    <div class="mb-3">
+                        <input id="email" @bind="customerViewModel.Email" class="form-control" type="email" placeholder="Email...">
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-outline-light">Add Customer</button>
+                </div>
+            </EditForm>
+        </div>
+
+        @if (customers == null)
+        {
+            <p>No customers found</p>
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th>#</th>
+                    <th>Customer</th>
+                    <th>Email Address</th>
+                </tr>
+
+                @foreach (var customer in customers)
+                {
+            <tr>
+                <td>@customer.Id</td>
+                <td>@customer.DisplayName</td>
+                <td>@customer.Email</td>
+                <td><NavLink href="#"><i class="fas fa-trash-alt"></i></NavLink></td>
+            </tr>
+                }
+
+            </table>
+        }
+    </div>
+
+
+
+    @code {
+        private CustomerViewModel customerViewModel { get; set; }
+        private IEnumerable<CustomerViewModel> customers { get; set; }
+
+        private async Task GetCustomersAsync()
+        {
+            customers = await Http.GetFromJsonAsync<IEnumerable<CustomerViewModel>>("https://localhost:44336/api/customers");
+        }
+
+
+        private async Task OnSubmitAsync()
+        {
+            await Http.PostAsJsonAsync<CustomerViewModel>("https://localhost:44336/api/customers", customerViewModel);
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            customerViewModel = new CustomerViewModel();
+            await GetCustomersAsync();
+        }
+
+    }
+
+
+

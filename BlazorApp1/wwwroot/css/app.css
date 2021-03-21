@@ -1,0 +1,56 @@
+﻿body {
+    color: #CFDBD5;
+    color: #E8EDDF;
+    color: #F5CB5C;
+    color: #242423;
+    color: #131813;
+}
+
+.colorblue {
+    color: #131813;
+}
+
+
+body {
+    background-color: #E8EDDF;
+}
+
+.navbar-top ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+}
+
+    .navbar-top ul li {
+        margin-left: 1.3rem;
+    }
+
+.navbar-top a {
+    color: #242423;
+    font-size: 1.1rem;
+}
+
+    .navbar-top a:hover {
+        color: #CFDBD5;
+    }
+
+.issue-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.btn {
+    background-color: #242423;
+}
+.btn:hover {
+      background-color: #CFDBD5;
+    }
+
+.fa-trash-alt {
+    color: #242423;
+    font-size: 1.1rem;
+}
+
+    .fa-trash-alt a:hover {
+        color: #CFDBD5;
+    }
